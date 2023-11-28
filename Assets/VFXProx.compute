@@ -1,0 +1,13 @@
+#pragma kernel VFXProxClear
+
+#define VFXPROX_RW
+#include "VFXProxCommon.hlsl"
+
+[numthreads(4, 4, 4)]
+void VFXProxClear(uint3 id : SV_DispatchThreadID)
+{
+    uint index = id.x + VFXProxCellCount * (id.y + VFXProxCellCount * id.z);
+    VFXProxCounter[index] = 0;
+    for (uint i = 0; i < VFXProxCellCapacity; i++)
+        VFXProxBuffer[index * VFXProxCellCapacity + i] = 0;
+}
