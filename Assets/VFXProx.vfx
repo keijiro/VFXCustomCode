@@ -467,7 +467,7 @@ MonoBehaviour:
   - {fileID: 114350483966675022}
   - {fileID: 114350483966675070}
   dataType: 0
-  capacity: 2048
+  capacity: 4096
   stripCapacity: 1
   particlePerStripCount: 128
   needsComputeBounds: 0
@@ -595,7 +595,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 4
+      m_SerializableObject: 8
     m_Space: -1
   m_Property:
     name: B
@@ -2714,7 +2714,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 114350483966675150}
-  m_UIPosition: {x: -107, y: 2204}
+  m_UIPosition: {x: -94, y: 2200}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -4027,7 +4027,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 114350483966675342}
-  m_UIPosition: {x: -1222, y: 1350}
+  m_UIPosition: {x: -1222, y: 1172}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -7082,7 +7082,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -1619, y: 1590}
+  m_UIPosition: {x: -1619, y: 1412}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -7454,7 +7454,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -1872, y: 1690}
+  m_UIPosition: {x: -1872, y: 1512}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -9876,7 +9876,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.08
+      m_SerializableObject: 0.04
     m_Space: -1
   m_Property:
     name: Alpha
