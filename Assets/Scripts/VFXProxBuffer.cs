@@ -3,37 +3,54 @@ using UnityEngine;
 [ExecuteInEditMode]
 public sealed class VFXProxBuffer : MonoBehaviour
 {
-    const int CellCount = 16;
+    #region Shader related constants
+
+    // These constants should match with ones in VFXProxCommon.hlsl
+    const int CellsPerAxis = 16;
     const int CellCapacity = 16;
     const float CellSize = 1;
 
-    [field:SerializeField] ComputeShader _compute = null;
+    #endregion
 
-    GraphicsBuffer _buffer;
-    GraphicsBuffer _counter;
+    #region Project asset reference
+
+    [field:SerializeField, HideInInspector] ComputeShader _compute = null;
+
+    #endregion
+
+    #region Private properties and objects
+
+    int TotalCells = CellsPerAxis * CellsPerAxis * CellsPerAxis;
+
+    (GraphicsBuffer point, GraphicsBuffer count) _buffer;
+
+    #endregion
+
+    #region MonoBehaviour implementation
 
     void OnEnable()
     {
-        var totalCells = CellCount * CellCount * CellCount;
+        _buffer.point = new GraphicsBuffer
+          (GraphicsBuffer.Target.Structured,
+           TotalCells * CellCapacity, sizeof(float) * 3);
 
-        _buffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured,
-                                     totalCells * CellCapacity,
-                                     sizeof(float) * 3);
+        _buffer.count = new GraphicsBuffer
+          (GraphicsBuffer.Target.Structured,
+           TotalCells, sizeof(uint));
 
-        _counter = new GraphicsBuffer(GraphicsBuffer.Target.Structured,
-                                      totalCells, sizeof(uint));
-
-        Shader.SetGlobalBuffer("VFXProxBuffer", _buffer);
-        Shader.SetGlobalBuffer("VFXProxCounter", _counter);
+        Shader.SetGlobalBuffer("VFXProxPointBuffer", _buffer.point);
+        Shader.SetGlobalBuffer("VFXProxCountBuffer", _buffer.count);
     }
 
     void OnDisable()
     {
-        _buffer?.Dispose();
-        _counter?.Dispose();
-        (_buffer, _counter) = (null, null);
+        _buffer.point?.Dispose();
+        _buffer.count?.Dispose();
+        _buffer = (null, null);
     }
 
     void Update()
-      => _compute.Dispatch(0, CellCount / 4, CellCount / 4, CellCount / 4);
+      => _compute.DispatchThreads(0, CellsPerAxis, CellsPerAxis, CellsPerAxis);
+
+    #endregion
 }

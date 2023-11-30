@@ -6,8 +6,12 @@
 [numthreads(4, 4, 4)]
 void VFXProxClear(uint3 id : SV_DispatchThreadID)
 {
-    uint index = id.x + VFXProxCellCount * (id.y + VFXProxCellCount * id.z);
-    VFXProxCounter[index] = 0;
+    uint ref_i = id.x + VFXProxCellsPerAxis * (id.y + VFXProxCellsPerAxis * id.z);
+
+    VFXProxCountBuffer[ref_i] = 0;
+
+    ref_i *= VFXProxCellCapacity;
+
     for (uint i = 0; i < VFXProxCellCapacity; i++)
-        VFXProxBuffer[index * VFXProxCellCapacity + i] = 0;
+        VFXProxPointBuffer[ref_i++] = 0;
 }

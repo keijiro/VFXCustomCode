@@ -3,5 +3,5 @@
 
 void VFXProxUpdate(inout VFXAttributes attributes)
 {
-    VFXProxAddEntry(attributes.position);
+    VFXProxAddPoint(attributes.position);
 }
