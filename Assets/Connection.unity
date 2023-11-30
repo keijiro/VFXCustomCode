@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 1005983648}
   - component: {fileID: 1005983647}
   m_Layer: 0
-  m_Name: Buffer
+  m_Name: VFXProxBuffer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 1018986271}
   - component: {fileID: 1018986270}
   m_Layer: 0
-  m_Name: VFX
+  m_Name: Connection VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

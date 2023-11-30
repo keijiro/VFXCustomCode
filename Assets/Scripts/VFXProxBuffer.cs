@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [ExecuteInEditMode]
-public sealed class VFXProxBufferProvider : MonoBehaviour
+public sealed class VFXProxBuffer : MonoBehaviour
 {
     const int CellCount = 16;
     const int CellCapacity = 16;
