@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 886227950}
   - component: {fileID: 886227949}
-  - component: {fileID: 886227948}
   - component: {fileID: 886227947}
   m_Layer: 0
   m_Name: Camera
@@ -150,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearColorMode: 0
-  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  clearColorMode: 1
+  backgroundColorHDR: {r: 0, g: 0, b: 0, a: 0}
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
@@ -270,14 +269,6 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
---- !u!81 &886227948
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886227946}
-  m_Enabled: 1
 --- !u!20 &886227949
 Camera:
   m_ObjectHideFlags: 0
