@@ -34,7 +34,7 @@ void VFXProxAddPoint(float3 pos)
 
 #endif
 
-float4 VFXProxLookUp(float3 pos, uint cell, float4 cand)
+void VFXProxLookUp(float3 pos, uint cell, inout float4 cand1, inout float4 cand2)
 {
     uint count = VFXProxCountBuffer[cell];
     uint ref_i = cell * VFXProxCellCapacity;
@@ -42,9 +42,19 @@ float4 VFXProxLookUp(float3 pos, uint cell, float4 cand)
     {
         float3 pt = VFXProxPointBuffer[ref_i++];
         float dist = length(pt - pos);
-        if (1e-5f < dist && dist < cand.w) cand = float4(pt, dist);
+        if (1e-5f < dist)
+        {
+            if (dist < cand1.w)
+            {
+                cand2 = cand1;
+                cand1 = float4(pt, dist);
+            }
+            else if (dist < cand2.w)
+            {
+                cand2 = float4(pt, dist);
+            }
+        }
     }
-    return cand;
 }
 
 #endif // _VFXPROX_COMMON_H_
