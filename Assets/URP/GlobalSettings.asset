@@ -53,18 +53,9 @@ MonoBehaviour:
       - rid: 5191210061774455095
       - rid: 7746680721649172490
       - rid: 5191210061774455097
+      - rid: 3287903900488433664
     m_RuntimeSettings:
-      m_List:
-      - rid: 5191210061774455078
-      - rid: 5191210061774455079
-      - rid: 5191210061774455082
-      - rid: 5191210061774455083
-      - rid: 5191210061774455086
-      - rid: 5191210061774455087
-      - rid: 5191210061774455089
-      - rid: 5191210061774455094
-      - rid: 5191210061774455095
-      - rid: 5191210061774455097
+      m_List: []
   m_AssetVersion: 8
   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
   m_RenderingLayerNames:
@@ -88,6 +79,12 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 3287903900488433664
+      type: {class: UniversalRenderPipelineRuntimeXRResources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_xrOcclusionMeshPS: {fileID: 4800000, guid: 4431b1f1f743fbf4eb310a967890cbea, type: 3}
+        m_xrMirrorViewPS: {fileID: 4800000, guid: d5a307c014552314b9f560906d708772, type: 3}
+        m_xrMotionVector: {fileID: 4800000, guid: f89aac1e4f84468418fe30e611dff395, type: 3}
     - rid: 5191210061774455078
       type: {class: RenderGraphSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
