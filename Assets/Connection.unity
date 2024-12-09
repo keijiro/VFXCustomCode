@@ -291,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e4c0ef3b2cc45b6b9306a26485a597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Extent>k__BackingField: {x: 8, y: 8, z: 8}
   _compute: {fileID: 7200000, guid: f74f5b929d34b49fb806437a528fcd27, type: 3}
 --- !u!1 &1018986269
 GameObject:

@@ -3,12 +3,9 @@ using UnityEngine;
 [ExecuteInEditMode]
 public sealed class VFXProxBuffer : MonoBehaviour
 {
-    #region Shader related constants
+    #region Public properties
 
-    // These constants should match with ones in VFXProxCommon.hlsl
-    const int CellsPerAxis = 16;
-    const int CellCapacity = 16;
-    const float CellSize = 1;
+    [field:SerializeField] public Vector3 Extent { get; set; } = Vector3.one;
 
     #endregion
 
@@ -18,7 +15,15 @@ public sealed class VFXProxBuffer : MonoBehaviour
 
     #endregion
 
-    #region Private properties and objects
+    #region Shader constants
+
+    // These constants must match those defined in VFXProxCommon.hlsl
+    const int CellsPerAxis = 16;
+    const int CellCapacity = 16;
+
+    #endregion
+
+    #region Private members
 
     int TotalCells = CellsPerAxis * CellsPerAxis * CellsPerAxis;
 
@@ -50,7 +55,10 @@ public sealed class VFXProxBuffer : MonoBehaviour
     }
 
     void Update()
-      => _compute.DispatchThreads(0, CellsPerAxis, CellsPerAxis, CellsPerAxis);
+    {
+        Shader.SetGlobalVector("VFXProxCellSize", Extent / CellsPerAxis);
+        _compute.DispatchThreads(0, CellsPerAxis, CellsPerAxis, CellsPerAxis);
+    }
 
     #endregion
 }

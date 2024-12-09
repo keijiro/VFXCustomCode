@@ -1,13 +1,14 @@
 #ifndef _VFXPROX_COMMON_H_
 #define _VFXPROX_COMMON_H_
 
-// These constants should match with ones in VFXProxBuffer.cs
+// These constants must match those defined in VFXProxBuffer.cs
 static const uint VFXProxCellsPerAxis = 16;
 static const uint VFXProxCellCapacity = 16;
-static const float VFXProxCellSize = 1;
 
 RWStructuredBuffer<float3> VFXProxPointBuffer;
 RWStructuredBuffer<uint>   VFXProxCountBuffer;
+
+float3 VFXProxCellSize;
 
 uint VFXProxCellIndex(float3 pos)
 {
