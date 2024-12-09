@@ -1,6 +1,5 @@
 #pragma kernel VFXProxClear
 
-#define VFXPROX_RW
 #include "VFXProxCommon.hlsl"
 
 [numthreads(4, 4, 4)]

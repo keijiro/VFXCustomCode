@@ -6,13 +6,8 @@ static const uint VFXProxCellsPerAxis = 16;
 static const uint VFXProxCellCapacity = 16;
 static const float VFXProxCellSize = 1;
 
-#ifdef VFXPROX_RW
 RWStructuredBuffer<float3> VFXProxPointBuffer;
 RWStructuredBuffer<uint>   VFXProxCountBuffer;
-#else
-StructuredBuffer<float3> VFXProxPointBuffer;
-StructuredBuffer<uint>   VFXProxCountBuffer;
-#endif
 
 uint VFXProxCellIndex(float3 pos)
 {
@@ -20,8 +15,6 @@ uint VFXProxCellIndex(float3 pos)
     c = min(c, VFXProxCellsPerAxis - 1);
     return c.x + VFXProxCellsPerAxis * (c.y + VFXProxCellsPerAxis * c.z);
 }
-
-#ifdef VFXPROX_RW
 
 void VFXProxAddPoint(float3 pos)
 {
@@ -31,8 +24,6 @@ void VFXProxAddPoint(float3 pos)
     if (count < VFXProxCellCapacity)
         VFXProxPointBuffer[index * VFXProxCellCapacity + count] = pos;
 }
-
-#endif
 
 void VFXProxLookUp(float3 pos, uint cell, inout float4 cand1, inout float4 cand2)
 {
@@ -55,6 +46,27 @@ void VFXProxLookUp(float3 pos, uint cell, inout float4 cand1, inout float4 cand2
             }
         }
     }
+}
+
+void VFXProxLookUpNearestPair(float3 pos, out float3 first, out float3 second)
+{
+    float4 cand1 = 1e+5;
+    float4 cand2 = 1e+5;
+
+    for (int i = -1; i < 2; i++)
+    {
+        for (int j = -1; j < 2; j++)
+        {
+            for (int k = -1; k < 2; k++)
+            {
+                uint cell = VFXProxCellIndex(pos + float3(i, j, k) * VFXProxCellSize);
+                VFXProxLookUp(pos, cell, cand1, cand2);
+            }
+        }
+    }
+
+    first  = cand1.w < 1e+5 ? cand1.xyz : pos;
+    second = cand2.w < 1e+5 ? cand2.xyz : pos;
 }
 
 #endif // _VFXPROX_COMMON_H_
