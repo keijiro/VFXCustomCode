@@ -1,16 +1,16 @@
-#pragma kernel VFXProxClear
+#pragma kernel VFXProx_Clear
 
 #include "VFXProxCommon.hlsl"
 
 [numthreads(4, 4, 4)]
-void VFXProxClear(uint3 id : SV_DispatchThreadID)
+void VFXProx_Clear(uint3 id : SV_DispatchThreadID)
 {
-    uint ref_i = id.x + VFXProxCellsPerAxis * (id.y + VFXProxCellsPerAxis * id.z);
+    uint ref_i = VFXProx_FlattenIndices(id);
 
-    VFXProxCountBuffer[ref_i] = 0;
+    VFXProx_CountBuffer[ref_i] = 0;
 
-    ref_i *= VFXProxCellCapacity;
+    ref_i *= VFXProx_CellCapacity;
 
-    for (uint i = 0; i < VFXProxCellCapacity; i++)
-        VFXProxPointBuffer[ref_i++] = 0;
+    for (uint i = 0; i < VFXProx_CellCapacity; i++)
+        VFXProx_PointBuffer[ref_i++] = 0;
 }

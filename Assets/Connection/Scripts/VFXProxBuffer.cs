@@ -43,8 +43,8 @@ public sealed class VFXProxBuffer : MonoBehaviour
           (GraphicsBuffer.Target.Structured,
            TotalCells, sizeof(uint));
 
-        Shader.SetGlobalBuffer("VFXProxPointBuffer", _buffer.point);
-        Shader.SetGlobalBuffer("VFXProxCountBuffer", _buffer.count);
+        Shader.SetGlobalBuffer("VFXProx_PointBuffer", _buffer.point);
+        Shader.SetGlobalBuffer("VFXProx_CountBuffer", _buffer.count);
     }
 
     void OnDisable()
@@ -56,7 +56,7 @@ public sealed class VFXProxBuffer : MonoBehaviour
 
     void Update()
     {
-        Shader.SetGlobalVector("VFXProxCellSize", Extent / CellsPerAxis);
+        Shader.SetGlobalVector("VFXProx_CellSize", Extent / CellsPerAxis);
         _compute.DispatchThreads(0, CellsPerAxis, CellsPerAxis, CellsPerAxis);
     }
 

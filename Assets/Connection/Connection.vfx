@@ -813,12 +813,12 @@ MonoBehaviour:
   - {fileID: 114350483966675820}
   - {fileID: 114350483966675824}
   m_OperatorName: Custom HLSL
-  m_HLSLCode: "#include \"Shaders/VFXProxCommon.hlsl\"\n\nvoid ProxLookUpNearest(float3
-    pos, out float3 first, out float3 second)\n{\n  VFXProxLookUpNearestPair(pos,
+  m_HLSLCode: "#include \"Shaders/VFXProxCommon.hlsl\"\n\nvoid Prox_LookUpNearest(float3
+    pos, out float3 first, out float3 second)\n{\n  VFXProx_LookUpNearestPair(pos,
     first, second);\n}"
   m_ShaderFile: {fileID: 0}
   m_AvailableFunctions:
-    selection: ProxLookUpNearest
+    selection: Prox_LookUpNearest
     selectedIndex: 0
 --- !u!114 &114350483966675046
 MonoBehaviour:
@@ -1837,11 +1837,11 @@ MonoBehaviour:
   m_Disabled: 0
   m_ActivationSlot: {fileID: 114350483966675151}
   m_BlockName: Custom HLSL
-  m_HLSLCode: "#include \"Shaders/VFXProxCommon.hlsl\"\n\nvoid ProxUpdate(inout VFXAttributes
-    attributes)\n{\n    VFXProxAddPoint(attributes.position);\n}"
+  m_HLSLCode: "#include \"Shaders/VFXProxCommon.hlsl\"\n\nvoid Prox_Update(inout
+    VFXAttributes attributes)\n{\n    VFXProx_AddPoint(attributes.position);\n}"
   m_ShaderFile: {fileID: 0}
   m_AvailableFunction:
-    selection: ProxUpdate
+    selection: Prox_Update
     selectedIndex: 0
 --- !u!114 &114350483966675151
 MonoBehaviour:
