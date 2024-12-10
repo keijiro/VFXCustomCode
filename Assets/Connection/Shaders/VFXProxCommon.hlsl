@@ -16,17 +16,30 @@ uint VFXProx_FlattenIndices(uint3 i)
     return i.x + VFXProx_CellsPerAxis * (i.y + VFXProx_CellsPerAxis * i.z);
 }
 
-// Get a flattened cell index for a specific point
-uint VFXProx_GetIndexAt(float3 pos)
+// Get cell indices for a specific point
+uint3 VFXProx_GetIndicesAt(float3 pos)
 {
-    uint3 c = pos / VFXProx_CellSize + VFXProx_CellsPerAxis / 2;
-    return VFXProx_FlattenIndices(max(0, min(VFXProx_CellsPerAxis - 1, c)));
+    return pos / VFXProx_CellSize + VFXProx_CellsPerAxis / 2;
+}
+
+// Get a flattened cell index for a specific point
+uint VFXProx_GetFlatIndexAt(float3 pos)
+{
+    return VFXProx_FlattenIndices(VFXProx_GetIndicesAt(pos));
+}
+
+// Boundary check
+bool VFXProx_CheckBounds(float3 pos, uint margin = 0)
+{
+    float3 ext = VFXProx_CellSize * (VFXProx_CellsPerAxis * 0.5 - margin);
+    return all(-ext < pos) && all(pos < ext);
 }
 
 // Add a point to the structure
 void VFXProx_AddPoint(float3 pos)
 {
-    uint index = VFXProx_GetIndexAt(pos);
+    if (!VFXProx_CheckBounds(pos)) return;
+    uint index = VFXProx_GetFlatIndexAt(pos);
     uint count = 0;
     InterlockedAdd(VFXProx_CountBuffer[index], 1, count);
     if (count < VFXProx_CellCapacity)
@@ -62,24 +75,30 @@ void VFXProx_LookUpNearestPairInCell
 void VFXProx_LookUpNearestPair
   (float3 pos, out float3 first, out float3 second)
 {
-    float4 cand1 = 1e+5;
-    float4 cand2 = 1e+5;
+    first = pos;
+    second = pos;
 
-    for (int i = -1; i < 2; i++)
+    if (!VFXProx_CheckBounds(pos, 1)) return;
+
+    float4 cand1 = float4(pos, 1e+5);
+    float4 cand2 = float4(pos, 1e+5);
+
+    uint3 idx = VFXProx_GetIndicesAt(pos);
+
+    for (uint i = 0; i < 3; i++)
     {
-        for (int j = -1; j < 2; j++)
+        for (uint j = 0; j < 3; j++)
         {
-            for (int k = -1; k < 2; k++)
+            for (uint k = 0; k < 3; k++)
             {
-                float3 offset = float3(i, j, k) * VFXProx_CellSize;
-                uint cell = VFXProx_GetIndexAt(pos + offset);
+                uint cell = VFXProx_FlattenIndices(idx + uint3(i, j, k) - 1);
                 VFXProx_LookUpNearestPairInCell(pos, cell, cand1, cand2);
             }
         }
     }
 
-    first  = cand1.w < 1e+5 ? cand1.xyz : pos;
-    second = cand2.w < 1e+5 ? cand2.xyz : pos;
+    first = cand1.xyz;
+    second = cand2.xyz;
 }
 
 #endif // _VFXPROX_COMMON_H_
